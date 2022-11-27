@@ -41,15 +41,10 @@ fun StatelessCounter(count: Int, onIncrement: () -> Unit, modifier: Modifier = M
 
 @Composable
 fun StatefulCounter(modifier: Modifier = Modifier) {
-    var count by rememberSaveable {
+    var count by remember {
         mutableStateOf(0)
     }
-    StatelessCounter(count, { count++ }, modifier)
 
-
-    var waterCounter by remember { mutableStateOf(0) }
-    var juiceCounter by remember { mutableStateOf(0) }
-
-    StatelessCounter(count = waterCounter, onIncrement = { waterCounter++ }, modifier = modifier)
-    StatelessCounter(count = juiceCounter, onIncrement = { juiceCounter++ }, modifier = modifier)
+    StatelessCounter(count, { count++ })
+    AnotherStatelessMethod(count, { count *= 2 })
 }
