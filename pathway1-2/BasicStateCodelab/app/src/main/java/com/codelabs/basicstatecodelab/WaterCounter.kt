@@ -45,4 +45,11 @@ fun StatefulCounter(modifier: Modifier = Modifier) {
         mutableStateOf(0)
     }
     StatelessCounter(count, { count++ }, modifier)
+
+
+    var waterCounter by remember { mutableStateOf(0) }
+    var juiceCounter by remember { mutableStateOf(0) }
+
+    StatelessCounter(count = waterCounter, onIncrement = { waterCounter++ }, modifier = modifier)
+    StatelessCounter(count = juiceCounter, onIncrement = { juiceCounter++ }, modifier = modifier)
 }
