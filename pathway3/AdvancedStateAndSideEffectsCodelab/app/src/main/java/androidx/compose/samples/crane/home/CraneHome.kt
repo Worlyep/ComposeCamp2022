@@ -24,6 +24,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberBackdropScaffoldState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -76,8 +77,7 @@ fun CraneHomeContent(
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = viewModel(),
 ) {
-    // TODO Codelab: collectAsState step - consume stream of data from the ViewModel
-    val suggestedDestinations: List<ExploreModel> = remember { emptyList() }
+    val suggestedDestinations by viewModel.suggestedDestinations.collectAsState()
 
     val onPeopleChanged: (Int) -> Unit = { viewModel.updatePeople(it) }
     var tabSelected by remember { mutableStateOf(CraneScreen.Fly) }
@@ -129,7 +129,7 @@ private fun HomeTabBar(
     openDrawer: () -> Unit,
     tabSelected: CraneScreen,
     onTabSelected: (CraneScreen) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     CraneTabBar(
         modifier = modifier,
@@ -148,7 +148,7 @@ private fun HomeTabBar(
 private fun SearchContent(
     tabSelected: CraneScreen,
     viewModel: MainViewModel,
-    onPeopleChanged: (Int) -> Unit
+    onPeopleChanged: (Int) -> Unit,
 ) {
     when (tabSelected) {
         CraneScreen.Fly -> FlySearchContent(
